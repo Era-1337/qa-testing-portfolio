@@ -9,17 +9,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-jammy
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '18'
       - name: Install dependencies
-        run: npm install
-      - name: Install Playwright browsers
-        run: npm exec playwright install -- --with-deps chromium
+        run: npm ci
       - name: Run Playwright tests
-        run: npm exec playwright test
+        run: npx playwright test
+        env:
+          HOME: /root
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         if: always()
