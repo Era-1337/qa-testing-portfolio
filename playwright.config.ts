@@ -3,6 +3,7 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30000,
+  reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
     browserName: 'chromium',
     headless: true,
